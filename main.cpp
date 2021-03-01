@@ -12,17 +12,7 @@ using namespace std;
 class Date{
 public:
     Date(){}
-    Date(int new_year,int new_month,int new_day){
-        year=new_year;
-        if (new_month<1||new_month>12){
-            throw invalid_argument("Month value is invalid: " +to_string(new_month));
-        }
-        month=new_month;
-        if (new_day<1||new_day>31){
-            throw invalid_argument("Day value is invalid: "+to_string(new_day));
-        }
-        day=new_day;
-    }
+    Date(int new_year,int new_month,int new_day): year(new_year), month(new_month), day(new_day) {}
     int GetYear() const{
         return year;
     };
@@ -39,9 +29,13 @@ private:
 };
 
 bool operator<(const Date& lhs, const Date& rhs){
-    vector <int> v1{lhs.GetYear(),lhs.GetMonth(),lhs.GetDay()};
-    vector <int> v2{rhs.GetYear(),rhs.GetMonth(),rhs.GetDay()};
-        return v1<v2;
+    if (lhs.GetYear()!=rhs.GetYear()){
+   return lhs.GetYear()<rhs.GetDay();
+    }
+    if (lhs.GetMonth()!=rhs.GetMonth()){
+        return lhs.GetMonth()<rhs.GetMonth();
+    }
+    return lhs.GetDay()<rhs.GetDay();
 }
 ostream& operator<<(ostream& stream,const Date& date){
     stream<<setw(4)<<setfill('0')<<date.GetYear()
